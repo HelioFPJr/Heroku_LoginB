@@ -1,14 +1,14 @@
 import os
 import pytest
 from selenium import webdriver
-
+from pages import login_page
 from pages.login_page import LoginPage
 
 
 # um padrão para o PyTest executar no início e no final dos testes
 @pytest.fixture
-def login(request):
-    # anteriormente apontavamos o Chrome Driver diretamente
+def login(driver):  # def login(request):
+    '''# anteriormente apontavamos o Chrome Driver diretamente
     # _chromedriver = 'vendor/chromedriver.exe'
     _chromedriver = os.path.join(os.getcwd(), 'tests', 'vendor', 'chromedriver.exe')
 
@@ -30,8 +30,8 @@ def login(request):
         driver_.quit()  # desligou o Selenium
 
     # chamar o quit (a finalização)
-    request.addfinalizer(quit)
-    return loginPage
+    request.addfinalizer(quit)'''
+    return login_page.LoginPage(driver)
 
 
 # Terminou a função de Login
@@ -44,14 +44,14 @@ def testar_login_com_sucesso(login):
     # Faça o login com este usuário e senha
     login.com_('tomsmith', 'SuperSecretPassword!')
     # Validar o resultado = mensagem de sucesso presenta
-    assert login.success_message_present()
+    assert login.vejo_mensagem_de_sucesso()
 
 
 def testar_login_com_usuario_invalido(login):
     login.com_('juca', 'SuperSecretPassword!')
-    assert login.failure_message_present()
+    assert login.vejo_mensagem_de_falha()
 
 
 def testar_login_com_senha_invalida(login):
     login.com_('tomsmith', 'xpto1234')
-    assert login.failure_message_present()
+    assert login.vejo_mensagem_de_falha()

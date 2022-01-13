@@ -46,9 +46,9 @@ class LoginPage(BasePage):
         self._clicar(self._submit_button)
 
     # função para validar se é exibida mensagem de sucesso
-    def success_message_present(self):
+    def vejo_mensagem_de_sucesso(self):
         return self._esta_visivel(self._success_message, 5)
 
     # funcão para validar se é exibida a mensagem de falha, em razão do usuário
-    def failure_message_present(self):
+    def vejo_mensagem_de_falha(self):
         return self._esta_visivel(self._failure_message, 5)
